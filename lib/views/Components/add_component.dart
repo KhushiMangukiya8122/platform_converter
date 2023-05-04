@@ -17,14 +17,17 @@ class _AddComponentState extends State<AddComponent> {
   GlobalKey<FormState> formKey = GlobalKey<FormState>();
 
   DateTime initialDate = DateTime.now();
+  DateTime initialTime = DateTime.now();
+  TimeOfDay initialTime1 = TimeOfDay.now();
+
   DateTime? pickedDate;
+  DateTime? pickedTime;
   late String periodName;
-  TimeOfDay initialTime = TimeOfDay.now();
 
   @override
   void initState() {
     super.initState();
-    initialTime = TimeOfDay.now();
+    initialTime = DateTime.now();
 
     if (initialTime.hour >= 12) {
       periodName = "pm";
@@ -194,13 +197,13 @@ class _AddComponentState extends State<AddComponent> {
                           onPressed: () async {
                             TimeOfDay? pickedTime = await showTimePicker(
                               context: context,
-                              initialTime: initialTime,
+                              initialTime: initialTime1,
                             );
 
                             setState(() {
                               if (pickedTime != pickedDate &&
                                   pickedTime != initialTime) {
-                                initialTime = pickedTime!;
+                                initialTime1 = pickedTime!;
                               }
                             });
                           },
@@ -210,15 +213,15 @@ class _AddComponentState extends State<AddComponent> {
                           ),
                         ),
                         (initialTime != null)
-                            ? (initialTime.periodOffset == 0)
+                            ? (initialTime1.periodOffset == 0)
                                 ? Text(
-                                    "${initialTime.hour} : ${initialTime.minute}  ${initialTime.period.name}",
+                                    "${initialTime.hour} : ${initialTime.minute}  ${initialTime1.period.name}",
                                     style: TextStyle(
                                       fontSize: 16,
                                     ),
                                   )
                                 : Text(
-                                    "${initialTime.hour - 12} ${initialTime.minute} ${initialTime.period.name}",
+                                    "${initialTime.hour - 12} ${initialTime.minute} ${initialTime1.period.name}",
                                     style: TextStyle(
                                       fontSize: 16,
                                     ),
@@ -368,7 +371,25 @@ class _AddComponentState extends State<AddComponent> {
                       height: 20,
                     ),
                     GestureDetector(
-                      onTap: () {},
+                      onTap: () {
+                        showCupertinoModalPopup(
+                          context: context,
+                          builder: (context) => Container(
+                              height: 340,
+                              color: Colors.white,
+                              child: CupertinoDatePicker(
+                                mode: CupertinoDatePickerMode.date,
+                                minimumYear: 2000,
+                                maximumYear: 2099,
+                                onDateTimeChanged: (val) {
+                                  setState(() {
+                                    initialDate = val;
+                                  });
+                                },
+                                initialDateTime: initialDate,
+                              )),
+                        );
+                      },
                       child: Row(
                         children: [
                           Icon(
@@ -378,12 +399,15 @@ class _AddComponentState extends State<AddComponent> {
                           SizedBox(
                             width: 18,
                           ),
-                          Text(
-                            "Pick Date",
-                            style: TextStyle(
-                              fontSize: 16,
-                            ),
-                          ),
+                          (pickedDate != null)
+                              ? Text(
+                                  "${initialDate.day} - ${initialDate.month} - ${initialDate.year}")
+                              : Text(
+                                  "Pick Date",
+                                  style: TextStyle(
+                                    fontSize: 16,
+                                  ),
+                                ),
                         ],
                       ),
                     ),
@@ -391,27 +415,27 @@ class _AddComponentState extends State<AddComponent> {
                       height: 15,
                     ),
                     GestureDetector(
-                      // onTap: () {
-                      //   showCupertinoModalPopup(
-                      //     context: context,
-                      //     builder: (context) => Container(
-                      //       height: 350,
-                      //       color: CupertinoColors.white,
-                      //       child: CupertinoDatePicker(
-                      //         mode: CupertinoDatePickerMode.date,
-                      //         initialDateTime: DateTime.now(),
-                      //         minimumYear: 2000,
-                      //         maximumYear: 2099,
-                      //         onDateTimeChanged: (val) {
-                      //           setState(() {
-                      //             // initialTime = val;
-                      //           });
-                      //         },
-                      //         use24hFormat: false,
-                      //       ),
-                      //     ),
-                      //   );
-                      // },
+                      onTap: () {
+                        showCupertinoModalPopup(
+                          context: context,
+                          builder: (context) => Container(
+                            height: 340,
+                            color: Colors.white,
+                            child: CupertinoDatePicker(
+                              mode: CupertinoDatePickerMode.time,
+                              maximumYear: 2099,
+                              minimumYear: 2000,
+                              onDateTimeChanged: (val) {
+                                setState(() {
+                                  initialTime = val;
+                                });
+                              },
+                              use24hFormat: false,
+                              initialDateTime: initialTime,
+                            ),
+                          ),
+                        );
+                      },
                       child: Row(
                         children: [
                           Icon(
@@ -421,12 +445,22 @@ class _AddComponentState extends State<AddComponent> {
                           SizedBox(
                             width: 18,
                           ),
-                          Text(
-                            "Pick Time",
-                            style: TextStyle(
-                              fontSize: 16,
-                            ),
-                          ),
+                          (pickedTime != null)
+                              ? (periodName == 'am')
+                                  ? Text(
+                                      "${initialTime.hour} : ${initialTime.minute}  $periodName",
+                                    )
+                                  : (initialTime.hour > 12)
+                                      ? Text(
+                                          "${initialTime.hour - 12} : ${initialTime.minute}  $periodName")
+                                      : Text(
+                                          "${initialTime.hour} :${initialTime.minute}  $periodName")
+                              : Text(
+                                  "Pick Time",
+                                  style: TextStyle(
+                                    fontSize: 16,
+                                  ),
+                                ),
                         ],
                       ),
                     ),
