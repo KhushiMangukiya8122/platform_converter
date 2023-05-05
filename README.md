@@ -2,8 +2,7 @@
 
 A new Flutter project.
 
-<img align="left" image="![1](https://user-images.githubusercontent.com/131368294/236390598-5e084a9e-17aa-4b95-bb46-b605fd76f959.png)
-">
+<img align="left" "C:\Users\DJ-1\Desktop\image">
 
 ## Getting Started
 
