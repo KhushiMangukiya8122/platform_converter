@@ -2,9 +2,9 @@
 
 A new Flutter project.
 
-<img align="left" src="https://user-images.githubusercontent.com/131368294/236392098-742e9a00-1f7e-4d8f-b4fa-faaf6599b45b.png" width="300px">
-<img align="left" src="https://user-images.githubusercontent.com/131368294/236393109-f657ec8a-0b10-4657-97c2-186798374144.png" width="300px">
-<img src="https://user-images.githubusercontent.com/131368294/236393117-264ba0b4-05be-451e-ace4-0fb15c7b56ce.png" width="300px">
+<img align="left" src="https://user-images.githubusercontent.com/131368294/236392098-742e9a00-1f7e-4d8f-b4fa-faaf6599b45b.png" width="220px">
+<img align="left" src="https://user-images.githubusercontent.com/131368294/236393109-f657ec8a-0b10-4657-97c2-186798374144.png" width="220px">
+<img src="https://user-images.githubusercontent.com/131368294/236393117-264ba0b4-05be-451e-ace4-0fb15c7b56ce.png" width="220px">
 
 <img align="left" src="https://user-images.githubusercontent.com/131368294/236393130-90cdefdc-cbef-4040-8633-56e39e582894.png" width="300px">
 <img align="left" src="https://user-images.githubusercontent.com/131368294/236393152-74c2e30f-379c-4ecb-a5d3-4f133f884be8.png" width="300px">
